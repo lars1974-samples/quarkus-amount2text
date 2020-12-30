@@ -1,7 +1,8 @@
 # amount2text project
 
 This project is implemented using https://quarkus.io/ with Kotlin. I wanted to investigate this framework.
-It's known for small images, that starts up very fast and leaves small memory footprint
+It's known for small images, that starts up very fast and leaves small memory footprint.
+For some reason exception mapping is not working correct in native mode - Its clear that it's still a young framework
 
 ## Build and run the entire application in Docker
 
