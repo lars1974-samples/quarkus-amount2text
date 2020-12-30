@@ -1,7 +1,7 @@
 # amount2text project
 
-This project is implemented using https://quarkus.io/ with Kotlin language. I want to investigate this frameworks,
-that creates small images, that starts up very fast and leaves small memory footprint
+This project is implemented using https://quarkus.io/ with Kotlin. I wanted to investigate this framework.
+It's known for small images, that starts up very fast and leaves small memory footprint
 
 ## Build and run the entire application in Docker
 
@@ -9,7 +9,7 @@ that creates small images, that starts up very fast and leaves small memory foot
  docker build -t lrn/amount2text . && docker run -i --rm -p 8080:8080 lrn/amount2text
 ```
 
-The test it by go to a browser in localhost:8080 and follow swagger link. Or you can just curl it with e.g:
+Then test it by go to a browser at http://localhost:8080 and follow swagger link. Or you can just curl it with e.g:
 
 ```shell script
 curl -X POST "http://localhost:8080/" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"input\":420.42}"

@@ -6,18 +6,20 @@ import java.text.DecimalFormat
 import kotlin.text.StringBuilder
 
 /**
- * Strategy: I found out the pattern repeats every time 3 digits are added. So I decided i could manage up to 3 digits (hundreds)
- * I would have so pieces to work with and test. It should also be fairly easy to extend it to handle bigger amounts.
+ * Strategy: I found out the pattern repeats every time 3 digits are added. So I decided if I could manage up to 3 digits (hundreds)
+ * I would have some pieces to work with and test. It should then also be fairly easy to extend it to handle bigger amounts.
  */
 object NumberToString {
     private val regex = """[0-9]{0,6}[.][0-9]{0,2}|[0-9]{0,6}""".toRegex()
 
     /**
-     * Validate that amount in range and the break it up to pieces that can be handled as 3 digits (2 digits for cents) parts.
-     * Then it fill in the right "fill" words at the right places
-     * */
+     * Convert Bigdecimal of in range 0..999999.99 to text e.g. 234.56 becomes TWO HUNDRED AND THIRTY FOR DOLLARS AND FIFTY SIX CENTS
+     */
     fun convert(amount: BigDecimal): String {
-        if(!regex.matches(amount.toPlainString())) throw IllegalArgumentException("Number must be a number in range 0..999999 and with maximum of two decimals")
+        //validate
+        if(!regex.matches(amount.toPlainString())) throw IllegalArgumentException("Number must be a number in range 0..999999.99 and with maximum of two decimals")
+
+        //split number to chunks
         val sAmount = DecimalFormat("#.00").format(amount).replace(',','.')
         val (dollar, cents) = sAmount.split(".")
         val ones = if (dollar.isNotEmpty()) dollar.takeLast(3).toInt() else 0
@@ -25,6 +27,7 @@ object NumberToString {
 
         val sb = StringBuilder()
 
+        //put put pieces back together as text
         if (thousands > 0 && ones > 0) sb.append(hundreds(thousands)).append(" THOUSAND AND ").append(hundreds(ones)).append(" DOLLARS").append(" AND ")
         if (thousands > 0 && ones == 0) sb.append(hundreds(thousands)).append(" THOUSAND DOLLARS").append(" AND ")
         if (thousands == 0 && ones > 1) sb.append(hundreds(ones)).append(" DOLLARS").append(" AND ")
