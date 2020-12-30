@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test
  */
 @QuarkusTest
 class Amount2TextResourceTest {
-
     @Test
     fun testHappyPath() {
         given()
@@ -27,7 +26,5 @@ class Amount2TextResourceTest {
             .`when`().contentType(ContentType.JSON).body( "{\"input\": 4242.4242 }").post("/")
             .then()
             .statusCode(400)
-            .body(`is`("{\"message\":\"Number must be a number in range 0..999999.99 and with maximum of two decimals\"}"))
     }
-
 }
